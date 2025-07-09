@@ -1,0 +1,67 @@
+<% layout("/layouts/boilerplate") %>
+<!-- Use the boilerplate layout for consistent page structure -->
+
+<main class="form-container">
+  <!-- Main container for the sign-up form -->
+
+  <h1>Sign Up</h1>
+  <!-- Page title -->
+
+  <form action="/signup" method="POST" class="auth-form" novalidate>
+    <!-- Sign-up form with POST action to /signup and client-side validation disabled -->
+
+    <label for="username">Username</label>
+    <input
+      type="text"
+      name="username"
+      id="username"
+      required
+      placeholder="Choose a username"
+      minlength="3"
+      maxlength="30"
+      autocomplete="username"
+    />
+    <!-- Input for username with validation rules -->
+
+    <label for="email">Email</label>
+    <input
+      type="email"
+      name="email"
+      id="email"
+      required
+      placeholder="Enter your email"
+      autocomplete="email"
+    />
+    <!-- Input for email with validation and autocomplete -->
+
+    <label for="password">Password</label>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      required
+      placeholder="Create a password"
+      minlength="6"
+      autocomplete="new-password"
+    />
+    <!-- Input for password with minimum length and autocomplete -->
+
+    <label for="userType">User Type</label>
+    <select name="userType" id="userType" required>
+      <option value="" disabled selected>Select your user type</option>
+      <option value="student">Student</option>
+      <option value="working_professional">Working Professional</option>
+      <option value="freelancer">Freelancer</option>
+      <option value="other">Other</option>
+    </select>
+    <!-- Dropdown to select user type, required field -->
+
+    <button type="submit" class="primary-button">Sign Up</button>
+    <!-- Submit button -->
+  </form>
+
+  <p class="form-footer-text">
+    Already have an account? <a href="/login">Login here</a>
+  </p>
+  <!-- Link to login page for existing users -->
+</main>

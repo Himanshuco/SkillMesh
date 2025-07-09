@@ -1,0 +1,20 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="matching-users-page">
+  <h2>People who can help you</h2>
+  
+  <% if (matchingUsers.length === 0) { %>
+    <p class="no-matches-message">No matching users found.</p>
+  <% } %>
+
+  <% for (let user of matchingUsers) { %>
+    <div class="match-card">
+      <h3><%= user.username %></h3>
+      <p><strong>Offers:</strong> <%= user.skillsOffered.join(", ") %></p>
+      <p><strong>Location:</strong> <%= user.location %></p>
+      <a href="/chat/chatWith/<%= user._id %>">Chat with <%= user.username %></a>
+      <a href="/user/<%= user._id %>/profile">View Profile</a>
+    </div>
+  <% } %>
+</div>
+

@@ -1,0 +1,23 @@
+<nav class="navbar sticky-top" role="navigation" aria-label="Main navigation ">
+  <div class="logo"><a href="/home">SkillMesh</a></div>
+  <ul class="nav-links">
+    <li><a href="#">How it Works</a></li>
+    <li><a href="#">About</a></li>
+
+    <% if (currentUser) { %>
+      <li><a href="/user/<%= currentUser._id %>">Dashboard</a></li>
+      <li><a href="/user/<%= currentUser._id %>/profile">Profile</a></li>
+      <li><a href="/user/<%= currentUser._id %>/projects">Projects</a></li>
+      <li><a href="/skills/matchable">Find Helpers</a></li>
+
+      <li>
+        <form action="/logout" method="POST">
+          <button type="submit" class="logout-btn">Logout</button>
+        </form>
+      </li>
+    <% } else { %>
+      <li><a href="/login">Login</a></li>
+      <li><a href="/signup" class="get-started-btn">Get Started</a></li>
+    <% } %>
+  </ul>
+</nav>

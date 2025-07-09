@@ -1,0 +1,31 @@
+<% layout("layouts/boilerplate") %>
+
+<div class="chat-layout">
+  <div class="chat-sidebar">
+    <ul id="chatList">
+      <% chats.forEach(chat => { 
+           const other = chat.participants.find(p => !p._id.equals(currentUser._id));
+      %>
+        <li onclick="window.location.href='/chats/<%= chat._id %>'">
+          <%= other?.username || 'Unknown' %>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+
+  
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+
+  const currentUserId = "<%= currentUser._id %>";
+
+  socket.emit('joinUserRoom', currentUserId);
+
+  socket.on('chatListUpdate', () => {
+    console.log('Chat list update received');
+    location.reload();
+  });
+</script>

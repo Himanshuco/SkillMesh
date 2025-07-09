@@ -1,0 +1,34 @@
+<% layout("layouts/boilerplate") %>
+
+<div class="chat-wrapper">
+  <div class="chat-header">
+    Chat with <span id="chatWithName"><%= chat.participants.filter(p => !p._id.equals(currentUser._id))[0]?.username %></span>
+    <!-- <span id="userStatus" style="font-weight: normal; font-size: 0.9rem; margin-left: 10px; color: lightgray;">(loading status...)</span> -->
+  </div>
+
+  <div class="chat-body" id="messages">
+    <% messages.forEach(msg => { %>
+      <div class="message <%= msg.sender._id.equals(currentUser._id) ? 'sent' : 'received' %>">
+        <div class="bubble">
+          <%= msg.text %>
+          <div class="meta"><%= msg.sender.username %> • <%= new Date(msg.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+  <form id="chatForm" class="chat-form">
+    <input id="msgInput" autocomplete="off" placeholder="Type a message..." />
+    <button type="submit">Send</button>
+  </form>
+</div>
+
+
+<script>
+  const senderId = "<%= currentUser._id %>";
+  const recipient = <%- JSON.stringify(chat.participants.find(p => !p._id.equals(currentUser._id))) %>;
+  const recipientId = recipient._id;
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat.js"></script>
+

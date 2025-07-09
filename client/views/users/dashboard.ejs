@@ -1,0 +1,73 @@
+<% layout("/layouts/boilerplate") %> 
+<!-- Use the boilerplate layout template for consistent page structure -->
+
+<div class="container">
+  <!-- Main container for dashboard content -->
+  
+  <h1>Welcome back, <%= user.username %></h1>
+  <!-- Personalized greeting with the logged-in user's username -->
+
+  <p class="subtitle">Here’s what’s happening in your SkillMesh space:</p>
+  <!-- Subtitle describing the dashboard overview -->
+
+  <div class="cards">
+    <!-- Cards container displaying different user info blocks -->
+
+    <div class="card">
+      <h2>My Skills Offered</h2>
+      <!-- Section to display the skills the user offers -->
+      <% if (user.skillsOffered.length > 0) { %>
+        <!-- If the user has any offered skills -->
+        <ul>
+          <% user.skillsOffered.forEach(skill => { %>
+            <li><%= skill %></li>
+            <!-- List each skill offered -->
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <!-- Message shown if no offered skills exist -->
+        <p>You haven't added any offered skills yet.</p>
+      <% } %>
+    </div>
+
+    <div class="card">
+      <h2>Earned Credits</h2>
+      <!-- Shows how many time credits the user has earned -->
+      <p>You've earned <%= user.credits %> time credits</p>
+    </div>
+
+    <div class="card">
+      <h2>Create New Project</h2>
+      <!-- Call to action for starting a new skill exchange or team -->
+      <p><a href="#">Start a new skill exchange or team</a></p>
+    </div>
+
+    <div class="card">
+      <h2>Skills Wanted</h2>
+      <!-- Section to display the skills the user wants to learn -->
+      <% if (user.skillsWanted.length > 0) { %>
+        <!-- If the user has requested any skills -->
+        <ul>
+          <% user.skillsWanted.forEach(skill => { %>
+            <li><%= skill %></li>
+            <!-- List each skill wanted -->
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <!-- Message shown if no skills are requested -->
+        <p>No skills requested yet.</p>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="user-info">
+    <!-- Profile info section displaying personal user details -->
+    <h3>Profile Info</h3>
+    <p><strong>Email:</strong> <%= user.email %></p>
+    <p><strong>Location:</strong> <%= user.location || "Not specified" %></p>
+    <p><strong>User Type:</strong> <%= user.userType %></p>
+    <p><strong>Bio:</strong> <%= user.bio || "No bio provided." %></p>
+    
+  </div>
+  <a href="/chats" class="btn btn-primary">Go to Chat Room</a>
+</div>

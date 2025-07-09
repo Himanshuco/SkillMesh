@@ -1,0 +1,47 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container">
+  <h1>Edit Your Profile</h1>
+
+  <form action="/user/<%= user._id %>?_method=PUT" method="POST" class="edit-profile-form">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" value="<%= user.username %>" required />
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" value="<%= user.email %>" required />
+
+    <label for="location">Location</label>
+    <input type="text" id="location" name="location" value="<%= user.location || '' %>" />
+
+    <label for="userType">User Type</label>
+    <select id="userType" name="userType" required>
+      <option value="student" <%= user.userType === 'student' ? 'selected' : '' %>>Student</option>
+      <option value="working_professional" <%= user.userType === 'working_professional' ? 'selected' : '' %>>Working Professional</option>
+      <option value="freelancer" <%= user.userType === 'freelancer' ? 'selected' : '' %>>Freelancer</option>
+      <option value="other" <%= user.userType === 'other' ? 'selected' : '' %>>Other</option>
+    </select>
+
+    <label for="bio">Bio</label>
+    <textarea id="bio" name="bio" rows="4" placeholder="Tell us about yourself..."><%= user.bio || '' %></textarea>
+
+    <label for="skillsOffered">Skills Offered (comma separated)</label>
+    <input
+      type="text"
+      id="skillsOffered"
+      name="skillsOffered"
+      value="<%= user.skillsOffered ? user.skillsOffered.join(', ') : '' %>"
+      placeholder="e.g., JavaScript, Cooking, Guitar"
+    />
+
+    <label for="skillsWanted">Skills Wanted (comma separated)</label>
+    <input
+      type="text"
+      id="skillsWanted"
+      name="skillsWanted"
+      value="<%= user.skillsWanted ? user.skillsWanted.join(', ') : '' %>"
+      placeholder="e.g., Spanish, Photography"
+    />
+
+    <button type="submit" class="save-btn">Save Changes</button>
+  </form>
+</div>

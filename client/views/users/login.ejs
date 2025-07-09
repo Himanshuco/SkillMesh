@@ -1,0 +1,43 @@
+<% layout("/layouts/boilerplate") %>
+<!-- Use the boilerplate layout template -->
+
+<main class="form-container">
+  <h1>Login</h1>
+  <!-- Page heading -->
+
+  <form action="/login" method="POST" class="auth-form" novalidate>
+    <!-- Login form that posts to /login -->
+
+    <label for="username">Email</label>
+    <!-- Label for email input -->
+    <input
+      type="email"
+      name="email"
+      id="username"
+      required
+      placeholder="Enter your email"
+      autocomplete="email"
+    />
+    <!-- Email input field -->
+
+    <label for="password">Password</label>
+    <!-- Label for password input -->
+    <input
+      type="password"
+      name="password"
+      id="password"
+      required
+      autocomplete="current-password"
+      minlength="6"
+    />
+    <!-- Password input field -->
+
+    <button type="submit" class="primary-button">Login</button>
+    <!-- Submit button -->
+  </form>
+
+  <p class="form-footer-text">
+    Don't have an account? <a href="/signup">Sign up here</a>
+    <!-- Link to signup page -->
+  </p>
+</main>

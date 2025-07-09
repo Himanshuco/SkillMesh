@@ -1,0 +1,50 @@
+<% layout("/layouts/boilerplate") %>
+<!-- Use the boilerplate layout for consistent page structure -->
+
+<div class="profile-wrapper">
+  <!-- Wrapper to center and style the profile card -->
+
+  <div class="profile-card-dark">
+    <!-- Dark-themed profile card container -->
+
+    <div class="profile-left">
+      <!-- Left section for user avatar -->
+      <img src="<%= user.avatarUrl %>" alt="Avatar" class="profile-avatar-large" />
+      <!-- User avatar image with alt text -->
+    </div>
+
+    <div class="profile-right">
+      <!-- Right section for user details -->
+      <h2><%= user.username %></h2>
+      <!-- Display username -->
+
+      <p><strong>Email:</strong> <%= user.email %></p>
+      <!-- Display email -->
+
+      <p><strong>User Type:</strong> <%= user.userType %></p>
+      <!-- Display user type -->
+
+      <p><strong>Location:</strong> <%= user.location || 'Not specified' %></p>
+      <!-- Display location or fallback text -->
+
+      <p><strong>About Me:</strong> <%= user.bio || 'No bio provided' %></p>
+      <!-- Display user bio or fallback -->
+
+      <p><strong>Credits:</strong> <%= user.credits %></p>
+      <!-- Display earned credits -->
+
+      <% if (user.skillsOffered.length) { %>
+        <!-- Conditionally show skills offered if any -->
+        <p><strong>Skills Offered:</strong> <%= user.skillsOffered.join(', ') %></p>
+      <% } %>
+
+      <% if (user.skillsWanted.length) { %>
+        <!-- Conditionally show skills wanted if any -->
+        <p><strong>Skills Wanted:</strong> <%= user.skillsWanted.join(', ') %></p>
+      <% } %>
+
+      <!-- Styled button for editing profile -->
+      <a href="/user/<%= user._id %>/edit" class="btn-edit">Edit Profile</a>
+    </div>
+  </div>
+</div>
