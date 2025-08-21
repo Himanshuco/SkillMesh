@@ -10,4 +10,4 @@ const sessionSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 module.exports = mongoose.model('Session', sessionSchema);
-//Done
+// This schema defines a session between a teacher and a learner for a specific skill.
