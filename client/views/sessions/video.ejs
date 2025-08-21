@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Call - <%= session.skill.name %></title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; }
+    video { border: 1px solid black; margin: 10px; }
+    button { margin: 5px; padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Video Call: <%= session.skill.name %></h1>
+
+  <video id="localVideo" autoplay playsinline muted width="320" height="240"></video>
+  <video id="remoteVideo" autoplay playsinline width="320" height="240"></video>
+
+  <div>
+    <button id="btnMute">Mute</button>
+    <button id="btnCamera">Camera Off</button>
+    <button id="btnShareScreen">Share Screen</button>
+    <button id="btnHangUp">Hang Up</button>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const roomId = '<%= session._id %>';
+
+    let localStream;
+    let remoteStream;
+    let peerConnection;
+    let isAudioMuted = false;
+    let isVideoOff = false;
+
+    const localVideo = document.getElementById('localVideo');
+    const remoteVideo = document.getElementById('remoteVideo');
+
+    const btnMute = document.getElementById('btnMute');
+    const btnCamera = document.getElementById('btnCamera');
+    const btnShareScreen = document.getElementById('btnShareScreen');
+    const btnHangUp = document.getElementById('btnHangUp');
+
+    const config = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
+
+    async function init() {
+      try {
+        localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        localVideo.srcObject = localStream;
+
+        peerConnection = new RTCPeerConnection(config);
+
+        // Add tracks to peer connection
+        localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+
+        peerConnection.ontrack = (event) => {
+          if (!remoteStream) {
+            remoteStream = new MediaStream();
+            remoteVideo.srcObject = remoteStream;
+          }
+          remoteStream.addTrack(event.track);
+          remoteVideo.play().catch(console.error);
+        };
+
+        peerConnection.onicecandidate = (event) => {
+          if (event.candidate) {
+            socket.emit('ice-candidate', { candidate: event.candidate, roomId });
+          }
+        };
+
+        socket.emit('join-video-room', { roomId });
+
+        socket.on('ready', async () => {
+          const offer = await peerConnection.createOffer();
+          await peerConnection.setLocalDescription(offer);
+          socket.emit('offer', { offer, roomId });
+        });
+
+        socket.on('offer', async ({ offer }) => {
+          await peerConnection.setRemoteDescription(offer);
+          const answer = await peerConnection.createAnswer();
+          await peerConnection.setLocalDescription(answer);
+          socket.emit('answer', { answer, roomId });
+        });
+
+        socket.on('answer', async ({ answer }) => {
+          await peerConnection.setRemoteDescription(answer);
+        });
+
+        socket.on('ice-candidate', async ({ candidate }) => {
+          try {
+            await peerConnection.addIceCandidate(candidate);
+          } catch (e) {
+            console.error('Error adding received ice candidate', e);
+          }
+        });
+
+      } catch (err) {
+        console.error('Error accessing media devices.', err);
+        alert('Could not access camera and microphone.');
+      }
+    }
+
+    // Mute/unmute audio
+    btnMute.addEventListener('click', () => {
+      if (!localStream) return;
+      isAudioMuted = !isAudioMuted;
+      localStream.getAudioTracks().forEach(track => track.enabled = !isAudioMuted);
+      btnMute.textContent = isAudioMuted ? 'Unmute' : 'Mute';
+    });
+
+    // Turn camera on/off
+    btnCamera.addEventListener('click', () => {
+      if (!localStream) return;
+      isVideoOff = !isVideoOff;
+      localStream.getVideoTracks().forEach(track => track.enabled = !isVideoOff);
+      btnCamera.textContent = isVideoOff ? 'Camera On' : 'Camera Off';
+    });
+
+    // Share screen
+    btnShareScreen.addEventListener('click', async () => {
+      try {
+        const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+        const screenTrack = screenStream.getVideoTracks()[0];
+
+        // Replace video track in the peer connection
+        const sender = peerConnection.getSenders().find(s => s.track.kind === 'video');
+        if (sender) {
+          sender.replaceTrack(screenTrack);
+        }
+
+        // When user stops sharing screen, revert to webcam
+        screenTrack.onended = () => {
+          if (localStream) {
+            const videoTrack = localStream.getVideoTracks()[0];
+            if (sender) sender.replaceTrack(videoTrack);
+          }
+        };
+      } catch (err) {
+        console.error('Error sharing screen:', err);
+      }
+    });
+
+    // Hang up call
+    btnHangUp.addEventListener('click', () => {
+      if (peerConnection) {
+        peerConnection.close();
+        peerConnection = null;
+      }
+      if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+        localStream = null;
+      }
+      if (remoteStream) {
+        remoteStream.getTracks().forEach(track => track.stop());
+        remoteStream = null;
+      }
+      window.location.href = '/sessions'; // redirect back to sessions page
+    });
+
+    init();
+  </script>
+</body>
+</html>

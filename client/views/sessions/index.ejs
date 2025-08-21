@@ -1,0 +1,42 @@
+<%- layout("/layouts/boilerplate") %>
+
+<h1>All Sessions</h1>
+
+<% if (sessions.length === 0) { %>
+  <p>No sessions found.</p>
+<% } else { %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Skill</th>
+        <th>Teacher</th>
+        <th>Learner</th>
+        <th>Scheduled At</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% sessions.forEach(function(session) { %>
+        <tr>
+          <td><%= session.skill?.name || 'No Skill' %></td>
+          <td><%= session.teacher?.username || 'Unknown Teacher' %></td>
+          <td><%= session.learner?.username || 'Unknown Learner' %></td>
+          <td><%= new Date(session.scheduledAt).toLocaleString() %></td>
+          <td><%= session.status || 'Pending' %></td>
+          <td>
+            <a href="/sessions/<%= session._id %>" class="btn btn-info">View</a>
+            <a href="/sessions/<%= session._id %>/edit" class="btn btn-primary">Edit</a>
+            <form action="/sessions/<%= session._id %>/delete" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this session?');">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            <% if (session.learner) { %>
+              <!-- Link to video call page -->
+              <a href="/sessions/<%= session._id %>/video" class="btn btn-warning">Start Video Call</a>
+            <% } %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } %>

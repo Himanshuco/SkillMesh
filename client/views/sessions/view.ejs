@@ -1,0 +1,13 @@
+<% layout("/layouts/boilerplate") %>
+
+<h1>Session Details</h1>
+
+<div class="session-details">
+  <p><strong>Skill:</strong> <%= session.skill ? session.skill.name : 'No Skill' %></p>
+  <p><strong>Teacher:</strong> <%= session.teacher ? session.teacher.username : 'Unknown Teacher' %></p>
+  <p><strong>Learner:</strong> <%= session.learner ? session.learner.username : 'Unknown Learner' %></p>
+  <p><strong>Scheduled At:</strong> <%= new Date(session.scheduledAt).toLocaleString() %></p>
+  <p><strong>Status:</strong> <%= session.status || 'Pending' %></p>
+</div>
+
+<a href="/sessions" class="btn btn-secondary">Back to Sessions</a>

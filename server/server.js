@@ -22,6 +22,7 @@ const homeRoute = require("./routes/home");
 const userDashboard = require("./routes/user");
 const chatRoute = require('./routes/chat');
 const projectRoutes = require('./routes/project');
+const sessionRoutes = require('./routes/session');
 
 
 const app = express();
@@ -79,6 +80,7 @@ app.use("/", chatRoute);
 app.use('/chat', chatRoute);
 app.use('/user/:id/projects', projectRoutes);
 app.use('/projects', projectRoutes);
+app.use('/', sessionRoutes);
 
 
 
@@ -140,6 +142,29 @@ io.on('connection', socket => {
     broadcastUserStatus(sid);
     // console.log(`${sid} disconnected`);
   });
+
+  //16/08
+  socket.on('join-video-room', ({ roomId }) => {
+    socket.join(roomId);
+    const clients = io.sockets.adapter.rooms.get(roomId) || new Set();
+    if (clients.size > 1) {
+      socket.to(roomId).emit('ready');
+    }
+  });
+
+  socket.on('offer', ({ offer, roomId }) => {
+    socket.to(roomId).emit('offer', { offer });
+  });
+
+  socket.on('answer', ({ answer, roomId }) => {
+    socket.to(roomId).emit('answer', { answer });
+  });
+
+  socket.on('ice-candidate', ({ candidate, roomId }) => {
+    socket.to(roomId).emit('ice-candidate', { candidate });
+  });
+
+
 });
 
 function broadcastUserStatus(userId) {
@@ -154,6 +179,6 @@ function broadcastUserStatus(userId) {
 
 
 // Start server
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0',  () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

@@ -1,0 +1,37 @@
+<%- layout("/layouts/boilerplate") %>
+
+<h1>Edit Session</h1>
+
+<form action="/sessions/<%= session._id %>" method="POST" class="project-form">
+  <input type="hidden" name="_method" value="PUT">
+  <div class="form-group">
+    <label for="skillId">Skill</label>
+    <select name="skillId" id="skillId" class="form-control" required>
+      <% if (session.skill && Array.isArray(session.teacher.skillsOffered)) { %>
+        <% session.teacher.skillsOffered.forEach(function(skill) { %>
+          <option value="<%= skill._id %>" <%= skill._id && skill._id.toString() === (session.skill ? session.skill._id.toString() : '') ? 'selected' : '' %>><%= skill.name %></option>
+        <% }); %>
+      <% } else { %>
+        <option value="">No skills available</option>
+      <% } %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="learnerId">Learner</label>
+    <select name="learnerId" id="learnerId" class="form-control" required>
+      <% if (session.learner) { %>
+        <option value="<%= session.learner._id %>" <%= session.learner._id.toString() === session.learner._id.toString() ? 'selected' : '' %>><%= session.learner.username %></option>
+      <% } else { %>
+        <option value="">No learner available</option>
+      <% } %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="scheduledAt">Scheduled At</label>
+    <input type="datetime-local" name="scheduledAt" id="scheduledAt" class="form-control" value="<%= new Date(session.scheduledAt).toISOString().slice(0, 16) %>" required />
+  </div>
+
+  <button type="submit" class="btn btn-primary">Update Session</button>
+</form>

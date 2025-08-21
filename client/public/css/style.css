@@ -2,16 +2,19 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  box-sizing: border-box;
+  /* Include padding and border in element's total width and height */
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to bottom, #2A6FDB, #B3D7FF); /* Blue gradient background */
+  background: linear-gradient(to bottom, #2A6FDB, #B3D7FF);
+  /* Blue gradient background */
   color: #fff;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensure body fills viewport height */
+  min-height: 100vh;
+  /* Ensure body fills viewport height */
 }
 
 /* === NAVBAR === */
@@ -20,12 +23,14 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: transparent; /* Transparent to blend with background */
+  background-color: transparent;
+  /* Transparent to blend with background */
   padding: 1rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1000; /* Stay on top */
+  z-index: 1000;
+  /* Stay on top */
   box-shadow: none;
   border: none;
 }
@@ -39,14 +44,16 @@ body {
 
 .logo a {
   text-decoration: none;
-  color: white; /* Primary brand color */
+  color: white;
+  /* Primary brand color */
   letter-spacing: 1px;
   transition: color 0.3s ease;
 }
 
 /* Logo hover color */
 .logo a:hover {
-  color: #5F0FFF; /* Accent highlight */
+  color: #5F0FFF;
+  /* Accent highlight */
 }
 
 /* First letter of logo gets accent color and larger font size */
@@ -83,7 +90,8 @@ body {
   background-color: #002984;
   color: white !important;
   padding: 0.6rem 1.2rem;
-  border-radius: 100px; /* Pill shape */
+  border-radius: 100px;
+  /* Pill shape */
   font-weight: 500;
   text-decoration: none;
 }
@@ -108,7 +116,8 @@ body {
   text-align: center;
   color: white;
   position: relative;
-  padding-top: 120px; /* Space for fixed navbar */
+  padding-top: 120px;
+  /* Space for fixed navbar */
   z-index: 3;
 }
 
@@ -158,7 +167,8 @@ body {
 .cards-wrapper {
   position: relative;
   max-width: 900px;
-  margin: -100px auto 0 auto; /* Negative margin to overlap hero section */
+  margin: -100px auto 0 auto;
+  /* Negative margin to overlap hero section */
   z-index: 5;
   display: flex;
   justify-content: center;
@@ -207,10 +217,11 @@ body {
 /* === WAVE CONTAINER === */
 .wave-container {
   background-color: #ffffff;
-  height: 150px; 
+  height: 150px;
   border-top-left-radius: 100% 60px;
   border-top-right-radius: 100% 60px;
-  margin-top: -100px; /* Pull up to overlap cards */
+  margin-top: -100px;
+  /* Pull up to overlap cards */
   position: relative;
   box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.05);
   z-index: 2;
@@ -222,12 +233,14 @@ body {
   color: #fff;
   text-align: center;
   padding: 1rem;
-  margin-top: auto; /* Stick footer at bottom */
+  margin-top: auto;
+  /* Stick footer at bottom */
 }
 
 /* === FORM STYLES === */
 .form-container {
-  background-color: #ffffffcc; /* Slightly transparent white */
+  background-color: #ffffffcc;
+  /* Slightly transparent white */
   max-width: 400px;
   margin: 6rem auto 3rem;
   padding: 2rem 2.5rem;
@@ -265,7 +278,8 @@ body {
 
 .auth-form input:focus,
 .auth-form select:focus {
-  border-color: #002984; /* Blue focus border */
+  border-color: #002984;
+  /* Blue focus border */
 }
 
 /* Primary button for forms */
@@ -377,7 +391,8 @@ h1 {
   margin-bottom: 1rem;
   font-size: 1.15rem;
   color: #222;
-  border-bottom: 2px solid #38bdf8; /* Blue underline */
+  border-bottom: 2px solid #38bdf8;
+  /* Blue underline */
   padding-bottom: 0.5rem;
 }
 
@@ -408,7 +423,7 @@ h1 {
   padding: 2rem;
   max-width: 900px;
   width: 100%;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Left section of profile card with avatar */
@@ -457,22 +472,26 @@ h1 {
 }
 
 .profile-wrapper {
-  max-width: 900px; /* Keep the same width as before */
+  max-width: 900px;
+  /* Keep the same width as before */
   margin: 40px auto;
   padding: 20px;
 }
 
 .profile-card-dark {
   display: flex;
-  background: #1f2937; /* Dark blue-gray */
+  background: #1f2937;
+  /* Dark blue-gray */
   border-radius: 12px;
   padding: 30px 40px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-  color: #f3f4f6; /* Light text */
+  color: #f3f4f6;
+  /* Light text */
 }
 
 .profile-left {
-  flex: 0 0 200px; /* Fixed width for avatar */
+  flex: 0 0 200px;
+  /* Fixed width for avatar */
   margin-right: 40px;
   display: flex;
   justify-content: center;
@@ -484,7 +503,8 @@ h1 {
   height: 180px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #3b82f6; /* blue border */
+  border: 3px solid #3b82f6;
+  /* blue border */
   box-shadow: 0 0 12px #3b82f6;
 }
 
@@ -497,7 +517,8 @@ h1 {
 .profile-right h2 {
   font-size: 2.2rem;
   margin-bottom: 15px;
-  color: #60a5fa; /* bright blue */
+  color: #60a5fa;
+  /* bright blue */
   font-weight: 700;
 }
 
@@ -521,7 +542,8 @@ h1 {
 }
 
 .btn-edit:hover {
-  background-color: #2563eb; /* darker blue */
+  background-color: #2563eb;
+  /* darker blue */
   box-shadow: 0 6px 14px rgba(37, 99, 235, 0.8);
   color: #f3f4f6;
 }
@@ -533,12 +555,14 @@ h1 {
 .container {
   max-width: 600px;
   margin: 50px auto;
-  background: #1e3a8a; /* deep blue */
+  background: #1e3a8a;
+  /* deep blue */
   padding: 35px 40px;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(14, 30, 64, 0.7);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #e0e7ff; /* light blue text */
+  color: #e0e7ff;
+  /* light blue text */
 }
 
 /* Heading style */
@@ -546,9 +570,10 @@ h1 {
   text-align: center;
   font-weight: 800;
   font-size: 2.8rem;
-  color: #bfdbfe; /* lighter blue */
+  color: #bfdbfe;
+  /* lighter blue */
   margin-bottom: 35px;
-  text-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
 }
 
 /* Labels */
@@ -556,7 +581,8 @@ h1 {
   display: block;
   margin-bottom: 8px;
   font-weight: 700;
-  color: #93c5fd; /* sky blue */
+  color: #93c5fd;
+  /* sky blue */
   margin-top: 22px;
   letter-spacing: 0.02em;
 }
@@ -571,7 +597,8 @@ h1 {
   font-size: 1.1rem;
   border: none;
   border-radius: 10px;
-  background: #3b82f6; /* brighter blue */
+  background: #3b82f6;
+  /* brighter blue */
   color: #e0e7ff;
   box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.25);
   font-family: inherit;
@@ -592,9 +619,11 @@ h1 {
 .edit-profile-form select:focus,
 .edit-profile-form textarea:focus {
   outline: none;
-  background: #60a5fa; /* lighter blue on focus */
+  background: #60a5fa;
+  /* lighter blue on focus */
   box-shadow: 0 0 12px 2px #93c5fd;
-  color: #1e293b; /* dark text for readability */
+  color: #1e293b;
+  /* dark text for readability */
 }
 
 /* Select dropdown arrow customization (optional) */
@@ -731,7 +760,7 @@ h1 {
   padding: 30px;
   background: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   font-family: 'Segoe UI', sans-serif;
 }
 
@@ -786,13 +815,15 @@ h1 {
 
 /* Match Card Container */
 .match-card {
-  background-color: #1f2937; /* dark card background */
+  background-color: #1f2937;
+  /* dark card background */
   border-radius: 12px;
   padding: 1.8rem;
   margin: 1.5rem auto;
   max-width: 600px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-  color: #e5e7eb; /* light text */
+  color: #e5e7eb;
+  /* light text */
   text-align: left;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -807,7 +838,8 @@ h1 {
 .match-card h3 {
   font-size: 1.5rem;
   margin-bottom: 0.6rem;
-  color: #60a5fa; /* sky blue */
+  color: #60a5fa;
+  /* sky blue */
 }
 
 /* Skill & Location Text */
@@ -838,7 +870,8 @@ h1 {
 /* "No matching users" message */
 .no-matches-message {
   font-size: 1.2rem;
-  color: #fca5a5; /* soft red */
+  color: #fca5a5;
+  /* soft red */
   margin-top: 2rem;
 }
 
@@ -974,7 +1007,7 @@ h1 {
   font-size: 14px;
   line-height: 1.3;
   display: inline-block;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .sent .bubble {
@@ -1056,12 +1089,13 @@ h1 {
 
 /* Stack cards vertically on very small screens */
 @media (max-width: 550px) {
+
   .cards-wrapper,
   .cards-container {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .card {
     width: 90%;
   }
@@ -1097,3 +1131,94 @@ h1 {
   }
 }
 
+/*  */
+
+
+/* In your styles.css file */
+.sessions-wrapper {
+  margin: 20px;
+}
+
+.sessions-wrapper h1 {
+  text-align: center;
+}
+
+.add-session-btn-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 12px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f4f4f4;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+
+.btn-info {
+  background-color: #5bc0de;
+}
+
+.btn-primary {
+  background-color: #007bff;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+}
+
+
+/* Video call modal styles */
+.video-call-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+video {
+  width: 100%;
+  height: auto;
+}
+
+button {
+  margin: 10px;
+}

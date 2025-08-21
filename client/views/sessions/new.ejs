@@ -1,0 +1,46 @@
+<% layout("/layouts/boilerplate") %>
+
+<h1>Create New Session</h1>
+
+<% if (messages.error && messages.error.length > 0) { %>
+  <div class="alert alert-danger">
+    <%= messages.error %>
+  </div>
+<% } %>
+
+<% if (messages.success && messages.success.length > 0) { %>
+  <div class="alert alert-success">
+    <%= messages.success %>
+  </div>
+<% } %> 
+
+<form action="/sessions" method="POST" class="session-form">
+  <div class="form-group">
+    <label for="skillId">Select Skill to Teach</label>
+    <select name="skillId" id="skillId" required class="form-control">
+      <% teacher.skillsOffered.forEach(function(skill) { %>
+        <option value="<%= skill %>"><%= skill %></option>
+      <% }); %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="learnerId">Select Learner</label>
+    <select name="learnerId" id="learnerId" required class="form-control">
+      <% students.forEach(function(student) { %>
+        <option value="<%= student._id %>">
+          <%= student.username %>
+        </option>
+      <% }); %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="scheduledAt">Scheduled At</label>
+    <input type="datetime-local" name="scheduledAt" id="scheduledAt" required class="form-control">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Create Session</button>
+</form>
+
+<a href="/sessions" class="btn btn-secondary mt-3">Back to Sessions</a>
